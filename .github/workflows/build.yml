@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # GitHub Actions Ubuntu পরিবেশে রান করবে
+    runs-on: ubuntu-22.04  # Ubuntu 22.04 ব্যবহার করুন
 
     steps:
       - name: Checkout code
