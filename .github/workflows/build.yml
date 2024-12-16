@@ -29,7 +29,7 @@ jobs:
           buildozer android debug  # APK তৈরি করার জন্য Buildozer কমান্ড
           
       - name: Upload APK to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # v3 সংস্করণ ব্যবহার করুন
         with:
           name: apk
           path: bin/  # APK ফাইল এখানে সেভ হবে
