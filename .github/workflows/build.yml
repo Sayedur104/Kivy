@@ -13,16 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Python ভার্সন
+          python-version: '3.11'  # Python 3.11 ব্যবহার করছি
 
       - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y python3 python3-pip openjdk-11-jdk unzip
-          sudo apt install -y python3-setuptools  # distutils-এর বিকল্প হিসাবে setuptools ইনস্টল
+          sudo apt install -y python3-setuptools build-essential
           pip install buildozer
           
       - name: Build APK
