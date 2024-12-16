@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y python3 python3-pip openjdk-11-jdk unzip
-          sudo apt install -y python3-distutils  # distutils প্যাকেজ ইনস্টল
+          sudo apt install -y build-essential python3-dev  # নতুন প্যাকেজ ইনস্টল
           pip install buildozer
           
       - name: Build APK
