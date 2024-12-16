@@ -1,38 +1,20 @@
-name: Build APK
-
 on:
   push:
-    branches:
-      - main  # আপনি যেই ব্রাঞ্চে কাজ করবেন সেই ব্রাঞ্চটি এখানে উল্লেখ করুন
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # Ubuntu 22.04 ব্যবহার করুন
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'  # Python 3.11 ব্যবহার করছি
-
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y python3 python3-pip openjdk-11-jdk unzip build-essential \
-            libffi-dev libssl-dev libsqlite3-dev zlib1g-dev libjpeg-dev \
-            libfreetype6-dev liblcms2-dev libblas-dev libatlas-base-dev \
-            python3-setuptools libssl-dev cython3 python3-distutils
-          pip install buildozer
-
+      - uses: actions/checkout@v4
       - name: Build APK
-        run: |
-          buildozer android debug  # APK তৈরি করার জন্য Buildozer কমান্ড
-          
-      - name: Upload APK to GitHub
-        uses: actions/upload-artifact@v3
+        uses: digreatbrian/buildozer-action@v2
         with:
-          name: apk
-          path: bin/  # APK ফাইল এখানে সেভ হবে
+          python-version: 3.8
+          buildozer-cmd: buildozer -v android debug
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: ./bin/*.apk
