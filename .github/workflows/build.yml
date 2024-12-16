@@ -1,0 +1,35 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main  # আপনি যেই ব্রাঞ্চে কাজ করবেন সেই ব্রাঞ্চটি এখানে উল্লেখ করুন
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub Actions Ubuntu পরিবেশে রান করবে
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Python ভার্সন
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3 python3-pip openjdk-11-jdk unzip
+          pip install buildozer
+          
+      - name: Build APK
+        run: |
+          buildozer android debug  # APK তৈরি করার জন্য Buildozer কমান্ড
+          
+      - name: Upload APK to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: bin/  # APK ফাইল এখানে সেভ হবে
